@@ -42,7 +42,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Et dolor dolor reprehenderit elit do incididunt exercitation dolor quis consequat exercitation ex deserunt eiusmod tempor minim dolor.
+Kanso's Database service provides simple yet surprisingly robust handler for managing database connections and queries.
+
+All interactions with the database are done through Kanso's single `Database` class. The `Database` class automatically prepares all your statements and queries for you, so you don't need to worry about SQL injection.
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -65,7 +67,7 @@ Proident sunt consequat cupidatat non proident reprehenderit consectetur id cill
 
 ## Connections
 
-Creating a database connection is done using the connection method:
+Creating a database connection is done using the `connection` method:
 
 ```php
 # Returns connection object using the "default" database configuration defined in the config file
@@ -75,13 +77,13 @@ $connection = $database->connection();
 $connection = $database->connection('mydb');
 ```
 
-The connections method returns an array of connection objects for all active connections:
+The `connections` method returns an array of connection objects for all active connections:
 
 ```php
 $connections = $database->connections();
 ```
 
-The connect method attempts to connect to the database and throws a PDOException if it fails. If successful, a PDO extension instance is returned:
+The `connect` method attempts to connect to the database and throws a `PDOException` if it fails. If successful, a `PDO` extension instance is returned:
 
 ```php
 # You may need to try catch this if you don't want the exception to be thrown
@@ -95,7 +97,7 @@ catch(PDOException $e)
 }
 ```
 
-The isConnected method check if the connection is connected to the database and returns a boolean:
+The `isConnected` method check if the connection is connected to the database and returns a boolean:
 
 ```php
 if ($connection->isConnected())
@@ -103,7 +105,7 @@ if ($connection->isConnected())
 }
 ```
 
-The reconnect method attempts to reconnect to the database and throws a PDOException if it fails. If successful, a PDO extension instance is returned:
+The `reconnect` method attempts to reconnect to the database and throws a `PDOException` if it fails. If successful, a `PDO` extension instance is returned:
 
 ```php
 if ($connection->isConnected())
@@ -119,7 +121,7 @@ if ($connection->isConnected())
 }
 ```
 
-The pdo method is similar to the reconnect method and attempts to connect to the database and throws a PDOException if it fails. If successful, a PDO extension instance is returned:
+The `pdo` method is similar to the reconnect method and attempts to connect to the database and throws a `PDOException` if it fails. If successful, a `PDO` extension instance is returned:
 
 ```php
 try
@@ -132,7 +134,7 @@ catch(PDOException $e)
 }
 ```
 
-The isAlive method is checks if the current connection is alive and returns a boolean:
+The `isAlive` method is checks if the current connection is alive and returns a boolean:
 
 ```php
 if ($connection->isAlive())
@@ -140,20 +142,20 @@ if ($connection->isAlive())
 }
 ```
 
-The close method closes the connection and destructs the PDO extension instance.
+The `close` method closes the connection and destructs the `PDO` extension instance.
 
 ```php
 $connection->close();
 ```
 
-The tablePrefix method returns the string prefix of the database table or an empty string if one is not set.
+The `tablePrefix` method returns the string prefix of the database table or an empty string if one is not set.
 
 ```php
 $prefix = $connection->tablePrefix();
 ```
 
 ## Connection Handler
-Connections come with a handy connectionHandler for interacting with the database and executing queries. When running queries through any database the connectionHandler should always be used.
+Connections come with a handy `connectionHandler` for interacting with the database and executing queries. When running queries through any database the `connectionHandler` should always be used.
 
 You can call the handler method to get a connection's handler instance.
 
@@ -161,7 +163,7 @@ You can call the handler method to get a connection's handler instance.
 $handler = $connection->handler();
 ```
 
-The getLog method returns an array of all queries executed by the handler.
+The `getLog` method returns an array of all queries executed by the handler.
 
 ```php
 $log = $handler->getLog();
@@ -170,27 +172,27 @@ $lastQuery = array_pop($handler->getLog());
 ```
 
 ## Queries
-Database queries should be run through a connectionHandler instance.
+Database queries should be run through a `connectionHandler` instance.
 
-The query method executes a given query:
+The `query` method executes a given query:
 
 ```php
 $users = $handler->query('SELECT * FROM kanso_users');
 ```
 
-The row method returns a single row or an empty array if the results are empty:
+The `row` method returns a single row or an empty array if the results are empty:
 
 ```php
 $users = $handler->row('SELECT * FROM kanso_users WHERE email = :email', ['email' => 'email@example.com']);
 ```
 
-The single method always returns a single value of a record:
+The `single` method always returns a single value of a record:
 
 ```php
 $name = $handler->single('SELECT name FROM kanso_users WHERE id = :id', ['id' => 1]);
 ```
 
-The column method always returns a single column:
+The `column` method always returns a single column:
 ```php
 $names = $handler->column('SELECT name FROM kanso_users');
 ```
@@ -213,7 +215,7 @@ $user = $handler->query('SELECT * FROM kanso_users WHERE name = :name', ['name'=
 ```
 
 ### Delete / Update / Insert
-When executing the delete, update, or insert statements via the query method the affected rows will be returned:
+When executing the `delete`, `update`, or `insert` statements via the query method the affected rows will be returned:
 
 ```php
 # Delete
@@ -234,7 +236,7 @@ if($insert > 0 )
 }
 ```
 
-The lastInsertId method returns the last inserted id:
+The `lastInsertId` method returns the last inserted id:
 
 ```php
 if ($handler->query('INSERT INTO kanso_users(name,Age) VALUES(:f,:age)', ['f'=>'Vivek','age'=>'20']))
@@ -244,9 +246,9 @@ if ($handler->query('INSERT INTO kanso_users(name,Age) VALUES(:f,:age)', ['f'=>'
 ```
 
 ### Method Params
-The row and the query method have a third optional parameter which is the fetch style.
+The `row` and the `query` method have a third optional parameter which is the fetch style.
 
-The default fetch style is PDO::FETCH_ASSOC which returns an associative array. You can change this behavior by providing a valid PHP PDO fetch_style as the third parameter.
+The default fetch style is `PDO::FETCH_ASSOC` which returns an associative array. You can change this behavior by providing a valid PHP [PDO fetch_style](https://www.php.net/manual/en/pdostatement.fetch.php) as the third parameter.
 
 ```php
 # Fetch style as third parameter
@@ -257,30 +259,30 @@ print_r($person_num);
 ```
 
 ## Cache
-The ConnectionHandler comes with a very basic cache implementation for caching SELECT query results across a single request.
+The `ConnectionHandler` comes with a very basic cache implementation for caching `SELECT` query results across a single request.
 
 When enabled, the cache will check to see if the same query has already been run during the request and attempt to load it from the cache.
 
-If you execute an UPDATE or DELETE query, the results will be cleared from the cache.
+If you execute an `UPDATE` or `DELETE` query, the results will be cleared from the cache.
 
-To access the cache, use the cache method on a ConnectionHandler instance:
+To access the cache, use the cache method on a `ConnectionHandler` instance:
 
 ```php
 $cache = $handler->cache();
 ```
 
-The disable method disables the cache:
+The `disable` method disables the cache:
 
 ```php
 $cache->disable();
 ```
 
-The enable method enables the cache:
+The `enable` method enables the cache:
 ```php
 $cache->enable();
 ```
 
-The enabled method returns a boolean on the cache status:
+The `enabled` method returns a boolean on the cache status:
 ```php
 if ($cache->enabled())
 {   
@@ -302,7 +304,7 @@ You can access the Builder class directly through the IoC container via the Data
 $builder = $kanso->Database->builder();
 ```
 
-Alternatively if you have a reference to an existing database connection, you can access the builder directly through the connection.
+Alternatively if you have a reference to an existing database `connection`, you can access the builder directly through the `connection`.
 
 ```php
 $builder = $kanso->Database->connection()->builder();
@@ -311,7 +313,7 @@ $builder = $kanso->Database->connection()->builder();
 ### Table Management
 The Builder class provides various methods to manipulate and interact with database tables. All the table management will return the Builder instance at hand, making them chainable.
 
-The CREATE_TABLE method is used to create a table:
+The `CREATE_TABLE` method is used to create a table:
 
 ```php
 $customPosts =
@@ -324,40 +326,40 @@ $customPosts =
 $builder->CREATE_TABLE('custom_posts' $customPosts);
 ```
 
-The DROP_TABLE method drops a table:
+The `DROP_TABLE` method drops a table:
 
 ```php
 $builder->DROP_TABLE('custom_posts');
 ```
 
-The TRUNCATE_TABLE method truncates a table's columns:
+The `TRUNCATE_TABLE` method truncates a table's columns:
 
 ```php
 $builder->TRUNCATE_TABLE('custom_posts');
 ```
 
 #### Alter
-To start altering a table, use the ALTER_TABLE method:
+To start altering a table, use the `ALTER_TABLE` method:
 
 ```php
 $table = $builder->ALTER_TABLE('custom_posts');
 ```
 
-The Alter class provides a number of helper methods to interact with the table at hand. The alter methods all return the working instance of the Alter class, making them chainable.
+> The `Alter` class provides a number of helper methods to interact with the table at hand. The alter methods all return the working instance of the Alter class, making them chainable.
 
-The ADD_COLUMN method adds a column to an existing table:
+The `ADD_COLUMN` method adds a column to an existing table:
 
 ```php
 $table->ADD_COLUMN('author_id', 'INTEGER | UNSIGNED');
 ```
 
-The DROP_COLUMN method drops an existing column on an existing table:
+The `DROP_COLUMN` method drops an existing column on an existing table:
 
 ```php
 $table->DROP_COLUMN('author_id');
 ```
 
-The MODIFY_COLUMN method can be used to set a column's data-type by providing a second parameter:
+The `MODIFY_COLUMN` method can be used to set a column's data-type by providing a second parameter:
 
 ```php
 $table->MODIFY_COLUMN('author_id', 'INTEGER | UNSIGNED | UNIQUE');
@@ -369,7 +371,7 @@ Or to set the working column for other methods by omitting it.
 $column = $table->MODIFY_COLUMN('author_id');
 ```
 
-Once you have called the MODIFY_COLUMN method, the following column modification methods are made available:
+Once you have called the `MODIFY_COLUMN` method, the following column modification methods are made available:
 
 ```php
 $column->ADD_PRIMARY_KEY();
@@ -389,13 +391,13 @@ $column->DROP_FOREIGN_KEY($referenceTable, $referenceKey, $constraint = null);
 ```
 
 #### Foreign Keys
-To set a foreign key constraint, use the ADD_FOREIGN_KEY method. The first parameter is the reference table, the second is the reference table's column name. The third parameter is optional and is used to set the name of the constraint. If omitted, a constraint name will be generated for you.
+To set a foreign key constraint, use the `ADD_FOREIGN_KEY` method. The first parameter is the reference table, the second is the reference table's column name. The third parameter is optional and is used to set the name of the constraint. If omitted, a constraint name will be generated for you.
 
 ```php
 $column->ADD_FOREIGN_KEY('users', 'id');
 ```
 
-Dropping a foreign key constraint follows the same rules as the ADD_FOREIGN_KEY method.
+Dropping a foreign key constraint follows the same rules as the `ADD_FOREIGN_KEY` method.
 
 ```php
 $column->DROP_FOREIGN_KEY('users', 'id');
@@ -424,7 +426,7 @@ The Builder class provides almost all SQL query statements by providing a wrappe
 
 #### Types
 
-Query types are where you define the type of query you are going to execute INSERT, DELETE, UPDATE, SET; as well the table upon which the query will run.
+Query types are where you define the type of query you are going to execute `INSERT`, `DELETE`, `UPDATE`, `SET`; as well the table upon which the query will run.
 
 The following methods can be used to set the query type:
 
