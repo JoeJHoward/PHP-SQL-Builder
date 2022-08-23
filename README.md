@@ -10,15 +10,17 @@
   	</p>
 </div>
 
+## Table Of Contents
+
 - [About The Project](#about-the-project)
 - [Getting Started](#getting-started)
 - [Prerequisites](#prerequisites)
-- [installation](#installation)
+- [Installation](#installation)
 - [Configuration](#configuration)
-- [Connections](#connections-queries)
-	- [Connection Handler]()
-	- [Queries]()
-	- [Cache]()
+- [Connections](#connections)
+	- [Connection Handler](#connection-handler)
+	- [Queries](#queries)
+	- [Cache](#cache)
 - [Query builder](query-builder)
 	- [Table Management](#table-management)
 		- [Alter](#alter)
