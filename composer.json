@@ -1,6 +1,29 @@
 {
-    "name": "your-vendor-name/package-name",
+    "name": "JoeJHoward/php-sql-builder",
     "description": "PHP SQL Builder provides simple yet surprisingly robust handler for managing database connections and queries.",
+    "keywords": ["pdo","sql","database"],
+    "homepage": "https://github.com/JoeJHoward/PHP-SQL-Builder",
+    "license": "MIT",
+    "authors":
+    [
+        {
+            "name": "Joe J. Howard",
+            "homepage": "https://github.com/JoeJHoward",
+            "role": "Developer"
+        }
+    ],
+    "support":
+    {
+		"issues": "https://github.com/JoeJHoward/PHP-SQL-Builder/issues",
+		"source": "https://github.com/JoeJHoward/PHP-SQL-Builder"
+	},
+	"autoload":
+	{
+		"psr-4":
+		{
+			"phpsqlbuilder\\": "phpsqlbuilder",
+		}
+	},
     "require":
     {
         "php": ">=7.2"
