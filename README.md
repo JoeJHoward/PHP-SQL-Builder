@@ -16,6 +16,7 @@
 - [Getting Started](#getting-started)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Access](#access)
 - [Configuration](#configuration)
 - [Connections](#connections)
 	- [Connection Handler](#connection-handler)
@@ -58,9 +59,62 @@ The preferred way to install is via composer:
 composer require joejhoward/php-sql-builder
 ```
 
+### Access
+
+All access is provided through the `Database` class. A configuration array must be provided when constructing.
+
+```php
+$database = new Database($config);
+```
+
 ### Configuration
 
-Proident sunt consequat cupidatat non proident reprehenderit consectetur id cillum ut sunt occaecat elit sit aliquip dolore id magna proident veniam duis irure non nostrud est sed exercitation do dolore aliquip minim ea.
+Configuration options are provided as an array. You can can also define multiple configurations for different runtime environments e.g localhost, sandbox production etc..
+
+
+```php
+/*
+ * ---------------------------------------------------------
+ * Configurations
+ * ---------------------------------------------------------
+ *
+ * You can define as many database configurations as you want.
+ *
+ * dsn        : PDO dsn string (will override other options if provided)
+ * name       : Database name
+ * username   : (optional) Username of the database server
+ * password   : (optional) Password of the database server
+ * persistent : (optional) Set to true to make the connection persistent
+ * log_queries: (optional) Enable query logging?
+ * options    : (optional) An array of PDO options
+ */
+$config =
+[
+	'default'        => 'sandbox',
+	'configurations' =>
+	[
+		'sandbox' =>
+		[
+			'name'     => 'Kanso',
+			'host' 	   => 'localhost',
+			'username' => 'root',
+			'password' => 'root',
+			'table_prefix' => 'kanso_',
+			'options'  =>
+			[
+				'MYSQL_ATTR_INIT_COMMAND' => 'SET NAMES utf8',
+				'ATTR_DEFAULT_FETCH_MODE' => \PDO::FETCH_ASSOC,
+			],
+		],
+	],
+	[
+		'production' =>
+		[
+			#...
+		],
+	],
+];
+```
 
 ## Connections & Queries
 
