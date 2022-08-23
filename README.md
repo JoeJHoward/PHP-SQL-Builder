@@ -42,9 +42,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Kanso's Database service provides simple yet surprisingly robust handler for managing database connections and queries.
+PHP SQL Builder  provides simple yet surprisingly robust handler for managing database connections and queries.
 
-All interactions with the database are done through Kanso's single `Database` class. The `Database` class automatically prepares all your statements and queries for you, so you don't need to worry about SQL injection.
+All interactions with your database are done through a single `Database` class. The `Database` class automatically prepares all your statements and queries for you, so you don't need to worry about SQL injection.
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -316,7 +316,7 @@ if ($cache->enabled())
 
 ## Query Builder
 
-Kanso's Query Builder allows you to programmatically build SQL queries without having to write giant SQL statements.
+PHP SQL Builder Query Builder allows you to programmatically build SQL queries without having to write giant SQL statements.
 
 Essentially, the Builder class is a chainable wrapper around the SQL syntax. All queries executed by the builder use prepared statements, thus mitigating the risk of SQL injections.
 
