@@ -237,12 +237,12 @@ When executing the `delete`, `update`, or `insert` statements via the query meth
 # Delete
 $delete = $handler->query('DELETE FROM kanso_users WHERE Id = :id', ['id'=>'1']);
 ```
-<br/>
+
 ```php
 # Update
 $update = $handler->query('UPDATE kanso_users SET name = :f WHERE Id = :id', ['f'=>'Jan','id'=>'32']);
 ```
-<br/>
+
 ```php
 # Insert
 $insert = $handler->query('INSERT INTO kanso_users(name,Age) VALUES(:f,:age)', ['f'=>'Vivek','age'=>'20']);
