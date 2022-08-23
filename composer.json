@@ -1,5 +1,5 @@
 {
-    "name": "JoeJHoward/php-sql-builder",
+    "name": "joejhoward/php-sql-builder",
     "description": "PHP SQL Builder provides simple yet surprisingly robust handler for managing database connections and queries.",
     "keywords": ["pdo","sql","database"],
     "homepage": "https://github.com/JoeJHoward/PHP-SQL-Builder",
