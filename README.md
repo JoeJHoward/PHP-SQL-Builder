@@ -41,8 +41,7 @@ All interactions with your database are done through a single `Database` class. 
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Follow the steps below to start using the SQL builder
 
 ### Prerequisites
 
@@ -53,7 +52,11 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-Ad enim aliqua commodo qui nisi fugiat incididunt voluptate nulla quis magna laborum adipisicing amet dolore ullamco cupidatat nulla ea excepteur ut in cupidatat laboris incididunt laboris in ad.
+The preferred way to install is via composer:
+
+```sh
+composer require joejhoward/php-sql-builder
+```
 
 ### Configuration
 
