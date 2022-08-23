@@ -39,18 +39,12 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ### Built With
 
@@ -63,10 +57,6 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -75,46 +65,16 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Ad enim aliqua commodo qui nisi fugiat incididunt voluptate nulla quis magna laborum adipisicing amet dolore ullamco cupidatat nulla ea excepteur ut in cupidatat laboris incididunt laboris in ad.
 
 ### Configuration
 
+Proident sunt consequat cupidatat non proident reprehenderit consectetur id cillum ut sunt occaecat elit sit aliquip dolore id magna proident veniam duis irure non nostrud est sed exercitation do dolore aliquip minim ea.
 
 
-### Connections
+## Connections
 
 Creating a database connection is done using the connection method:
 
@@ -203,7 +163,7 @@ The tablePrefix method returns the string prefix of the database table or an emp
 $prefix = $connection->tablePrefix();
 ```
 
-#### Connection Handler
+## Connection Handler
 Connections come with a handy connectionHandler for interacting with the database and executing queries. When running queries through any database the connectionHandler should always be used.
 
 You can call the handler method to get a connection's handler instance.
@@ -220,7 +180,7 @@ $log = $handler->getLog();
 $lastQuery = array_pop($handler->getLog());
 ```
 
-#### Queries
+## Queries
 Database queries should be run through a connectionHandler instance.
 
 The query method executes a given query:
@@ -246,7 +206,7 @@ The column method always returns a single column:
 $names = $handler->column('SELECT name FROM kanso_users');
 ```
 
-#### Bindings
+### Bindings
 Binding parameters is the best way to prevent SQL injection. The class prepares your SQL query and binds the parameters afterwards. There are three different ways to bind parameters:
 
 ```php
@@ -263,7 +223,7 @@ $user = $handler->query('SELECT * FROM kanso_users WHERE name = :name AND id = :
 $user = $handler->query('SELECT * FROM kanso_users WHERE name = :name', ['name'=>'John','id'=>'1']);
 ```
 
-#### Delete / Update / Insert
+### Delete / Update / Insert
 When executing the delete, update, or insert statements via the query method the affected rows will be returned:
 
 ```php
@@ -294,7 +254,7 @@ if ($handler->query('INSERT INTO kanso_users(name,Age) VALUES(:f,:age)', ['f'=>'
 }
 ```
 
-#### Method Params
+### Method Params
 The row and the query method have a third optional parameter which is the fetch style.
 
 The default fetch style is PDO::FETCH_ASSOC which returns an associative array. You can change this behavior by providing a valid PHP PDO fetch_style as the third parameter.
@@ -307,7 +267,7 @@ print_r($person_num);
 # [ [0] => 1 [1] => Johny [2] => Doe [3] => M [4] => 19 ]
 ```
 
-#### Cache
+## Cache
 The ConnectionHandler comes with a very basic cache implementation for caching SELECT query results across a single request.
 
 When enabled, the cache will check to see if the same query has already been run during the request and attempt to load it from the cache.
@@ -338,7 +298,7 @@ if ($cache->enabled())
 }
 ```
 
-### Query Builder
+## Query Builder
 
 Kanso's Query Builder allows you to programmatically build SQL queries without having to write giant SQL statements.
 
@@ -346,7 +306,7 @@ Essentially, the Builder class is a chainable wrapper around the SQL syntax. All
 
 When chaining methods, the chaining order follows the same syntax as if you were to write an SQL query statement.
 
-#### Access
+### Access
 You can access the Builder class directly through the IoC container via the Database object:
 
 ```php
@@ -359,7 +319,7 @@ Alternatively if you have a reference to an existing database connection, you ca
 $builder = $kanso->Database->connection()->builder();
 ```
 
-#### Table Management
+### Table Management
 The Builder class provides various methods to manipulate and interact with database tables. All the table management will return the Builder instance at hand, making them chainable.
 
 The CREATE_TABLE method is used to create a table:
@@ -465,7 +425,7 @@ A more complicated chain starting from a Builder instance might look like this:
 $builder->ALTER_TABLE('custom_posts')->ADD_COLUMN('author_id', 'INTEGER | UNSIGNED')->MODIFY_COLUMN('author_id')->ADD_FOREIGN_KEY('users', 'id');
 ```
 
-#### Query Building
+### Query Building
 The Builder class provides almost all SQL query statements by providing a wrapper around the Query class. The methods can be placed into three logical sections:
 
 - Query types
@@ -572,7 +532,7 @@ $builder->FIND_ALL();
 $builder->QUERY();
 ```
 
-### Query Chains
+#### Query Chains
 Query chaining is where it all comes together and allows you to execute a query in the same syntax as if you were to write an SQL query statement. Here are some examples:
 
 ```php
@@ -640,9 +600,6 @@ $delete = $builder->DELETE_FROM('posts')
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -658,7 +615,6 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -667,7 +623,6 @@ Don't forget to give the project a star! Thanks again!
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -678,7 +633,6 @@ Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_
 
 Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -689,7 +643,6 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 * []()
 * []()
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
