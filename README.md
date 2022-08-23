@@ -33,7 +33,6 @@
 		- [Executions](#executions)
 		- [Query Chains](#query-chains)
 
-
 ## About The Project
 
 PHP SQL Builder  provides simple yet surprisingly robust handler for managing database connections and queries.
@@ -47,7 +46,10 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-Et dolor dolor reprehenderit elit do incididunt exercitation dolor quis consequat exercitation ex deserunt eiusmod tempor minim dolor.
+- PHP >= 7.2
+- PDO PHP Extension
+- Composer (optional)
+- Web Server With SQL
 
 ### Installation
 
