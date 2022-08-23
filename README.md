@@ -1,52 +1,43 @@
-<a name="readme-top"></a>
-
-<br />
 <div align="center">
-
-<h3 align="center">PHP SQL Builder</h3>
-
-  <p align="center">
-    PHP SQL builder provides a complete 100% safe and secure solution for managing SQL connections through a set of handy PHP utility classes. Never write any SQL in your PHP project again!
-    <br />
-    <br />    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
-  </p>
+	<h3 align="center">PHP SQL Builder</h3>
+  	<p align="center">
+    	PHP SQL builder provides a complete 100% safe and secure solution for managing SQL connections through a set of handy PHP utility classes. Never write SQL in your PHP project again!
+    	<br />
+    	<br />
+    	<a href="https://github.com/JoeJHoward/PHP-SQL-Builder/issues">Report Bug</a>
+    	·
+    	<a href="https://github.com/JoeJHoward/PHP-SQL-Builder/issues">Request Feature</a>
+  	</p>
 </div>
 
+- [About The Project](#about-the-project)
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [installation](#installation)
+- [Configuration](#configuration)
+- [Connections](#connections-queries)
+	- [Connection Handler]()
+	- [Queries]()
+	- [Cache]()
+- [Query builder](query-builder)
+	- [Table Management](#table-management)
+		- [Alter](#alter)
+		- [Foreign Keys](#foreign-keys)
+		- [Alter Chains](#alter-chains)
+	- [Query Building](#query-building)
+		- [Types](#types)
+		- [Filters](#filters)
+		- [Organizers](#organizers)
+		- [Executions](#executions)
+		- [Query Chains](#query-chains)
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 PHP SQL Builder  provides simple yet surprisingly robust handler for managing database connections and queries.
 
 All interactions with your database are done through a single `Database` class. The `Database` class automatically prepares all your statements and queries for you, so you don't need to worry about SQL injection.
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -64,8 +55,7 @@ Ad enim aliqua commodo qui nisi fugiat incididunt voluptate nulla quis magna lab
 
 Proident sunt consequat cupidatat non proident reprehenderit consectetur id cillum ut sunt occaecat elit sit aliquip dolore id magna proident veniam duis irure non nostrud est sed exercitation do dolore aliquip minim ea.
 
-
-## Connections
+## Connections & Queries
 
 Creating a database connection is done using the `connection` method:
 
@@ -634,7 +624,7 @@ $delete = $builder->DELETE_FROM('posts')
 - [ ] Feature 3
     - [ ] Nested Feature
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/JoeJHoward/PHP-SQL-Builder/issues) for a full list of proposed features (and known issues).
 
 
 <!-- CONTRIBUTING -->
@@ -667,7 +657,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/JoeJHoward/PHP-SQL-Builder](https://github.com/JoeJHoward/PHP-SQL-Builder)
 
 
 
@@ -685,15 +675,15 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
+[contributors-url]: https://github.com/JoeJHoward/PHP-SQL-Builder/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
+[forks-url]: https://github.com/JoeJHoward/PHP-SQL-Builder/network/members
 [stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
+[stars-url]: https://github.com/JoeJHoward/PHP-SQL-Builder/stargazers
 [issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
+[issues-url]: https://github.com/JoeJHoward/PHP-SQL-Builder/issues
 [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
+[license-url]: https://github.com/JoeJHoward/PHP-SQL-Builder/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
