@@ -35,7 +35,7 @@
 
 ## About The Project
 
-PHP SQL Builder  provides simple yet surprisingly robust handler for managing database connections and queries.
+PHP SQL Builder provides simple yet surprisingly robust handler for managing database connections and queries.
 
 All interactions with your database are done through a single `Database` class. The `Database` class automatically prepares all your statements and queries for you, so you don't need to worry about SQL injection.
 

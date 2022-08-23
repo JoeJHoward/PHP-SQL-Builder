@@ -1,0 +1,8 @@
+{
+    "name": "your-vendor-name/package-name",
+    "description": "PHP SQL Builder provides simple yet surprisingly robust handler for managing database connections and queries.",
+    "require":
+    {
+        "php": ">=7.2"
+    }
+}
