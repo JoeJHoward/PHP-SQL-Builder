@@ -61,7 +61,7 @@ composer require joejhoward/php-sql-builder
 
 ### Access
 
-All access is provided through the `Database` class. A configuration array must be provided when constructing.
+All access is provided through the `Database` class. A configuration `array` must be provided when constructing.
 
 ```php
 $database = new Database($config);
@@ -69,25 +69,23 @@ $database = new Database($config);
 
 ### Configuration
 
-Configuration options are provided as an array. You can can also define multiple configurations for different runtime environments e.g localhost, sandbox production etc..
+Configuration options are a multi-dimensional `array`. You can can also define multiple configurations for different runtime environments e.g localhost, sandbox production etc..
+
+The `default` key value will be used for default connections.
+
+
+| key                                | Description            | Type         |
+| ---------------------------------- | ---------------------- |------------- |
+| `name`                             | Database name          | `string`     |
+| `host`                             | Database host          | `string`     |
+| `password`                         | Username password      | `string`     |
+| `table_prefix`                     | Text                   | `string`     |
+| `options`                          | Array                  | `array`      |
+| `options.MYSQL_ATTR_INIT_COMMAND`  | Connection attributes  | `string`     |
+| `options.ATTR_DEFAULT_FETCH_MODE`  | PDO fetch mode         | `string`     |
 
 
 ```php
-/*
- * ---------------------------------------------------------
- * Configurations
- * ---------------------------------------------------------
- *
- * You can define as many database configurations as you want.
- *
- * dsn        : PDO dsn string (will override other options if provided)
- * name       : Database name
- * username   : (optional) Username of the database server
- * password   : (optional) Password of the database server
- * persistent : (optional) Set to true to make the connection persistent
- * log_queries: (optional) Enable query logging?
- * options    : (optional) An array of PDO options
- */
 $config =
 [
 	'default'        => 'sandbox',
@@ -95,11 +93,11 @@ $config =
 	[
 		'sandbox' =>
 		[
-			'name'     => 'Kanso',
+			'name'     => 'super_app',
 			'host' 	   => 'localhost',
 			'username' => 'root',
 			'password' => 'root',
-			'table_prefix' => 'kanso_',
+			'table_prefix' => 'sa_',
 			'options'  =>
 			[
 				'MYSQL_ATTR_INIT_COMMAND' => 'SET NAMES utf8',
@@ -116,7 +114,7 @@ $config =
 ];
 ```
 
-## Connections & Queries
+## Connections
 
 Creating a database connection is done using the `connection` method:
 
@@ -234,69 +232,70 @@ $lastQuery = array_pop($handler->getLog());
 <br/>
 
 ## Queries
-Database queries should be run through a `connectionHandler` instance.
+
+If you want to run direct SQL queries, you can use a connection's `connectionHandler` instance.
 
 The `query` method executes a given query:
 
 ```php
-$users = $handler->query('SELECT * FROM kanso_users');
+$users = $handler->query('SELECT * FROM users');
 ```
 <br/>
 
 The `row` method returns a single row or an empty array if the results are empty:
 
 ```php
-$users = $handler->row('SELECT * FROM kanso_users WHERE email = :email', ['email' => 'email@example.com']);
+$users = $handler->row('SELECT * FROM users WHERE email = :email', ['email' => 'email@example.com']);
 ```
 <br/>
 
 The `single` method always returns a single value of a record:
 
 ```php
-$name = $handler->single('SELECT name FROM kanso_users WHERE id = :id', ['id' => 1]);
+$name = $handler->single('SELECT name FROM users WHERE id = :id', ['id' => 1]);
 ```
 <br/>
 
 The `column` method always returns a single column:
 ```php
-$names = $handler->column('SELECT name FROM kanso_users');
+$names = $handler->column('SELECT name FROM users');
 ```
 <br/>
 
 ### Bindings
-Binding parameters is the best way to prevent SQL injection. The class prepares your SQL query and binds the parameters afterwards. There are three different ways to bind parameters:
+If you want to run direct SQL queries, bind paramaters to your statements to prevent SQL injection. The class prepares your SQL query and binds the parameters afterwards. Binding keys are prefixed by a ':'. There are three different ways to bind parameters:
 
 ```php
 # 1. Read friendly method  
 $handler->bind('id', 1);
 $handler->bind('name','John');
-$user = $handler->query('SELECT * FROM kanso_users WHERE name = :name AND id = :id');
+$user = $handler->query('SELECT * FROM users WHERE name = :name AND id = :id');
 
 # 2. Bind more parameters
 $handler->bindMore(['name'=>'John','id'=>'1']);
-$user = $handler->query('SELECT * FROM kanso_users WHERE name = :name AND id = :id');
+$user = $handler->query('SELECT * FROM users WHERE name = :name AND id = :id');
 
 # 3. Or just give the parameters to the method
-$user = $handler->query('SELECT * FROM kanso_users WHERE name = :name', ['name'=>'John','id'=>'1']);
+$user = $handler->query('SELECT * FROM users WHERE name = :name', ['name'=>'John','id'=>'1']);
 ```
 <br/>
 
 ### Delete / Update / Insert
-When executing the `delete`, `update`, or `insert` statements via the query method the affected rows will be returned:
+When executing the `delete`, `update`, or `insert` statements via the `query` method the affected rows will be returned:
 
 ```php
 # Delete
-$delete = $handler->query('DELETE FROM kanso_users WHERE Id = :id', ['id'=>'1']);
+$delete = $handler->query('DELETE FROM users WHERE Id = :id', ['id'=>'1']);
 ```
 
 ```php
 # Update
-$update = $handler->query('UPDATE kanso_users SET name = :f WHERE Id = :id', ['f'=>'Jan','id'=>'32']);
+$update = $handler->query('UPDATE users SET name = :f WHERE Id = :id', ['f'=>'Jan','id'=>'32']);
 ```
 
 ```php
 # Insert
-$insert = $handler->query('INSERT INTO kanso_users(name,Age) VALUES(:f,:age)', ['f'=>'Vivek','age'=>'20']);
+$insert = $handler->query('INSERT INTO users(name,Age) VALUES(:f,:age)', ['f'=>'Vivek','age'=>'20']);
 
 # Do something with the data 
 if($insert > 0 )
@@ -309,7 +308,7 @@ if($insert > 0 )
 The `lastInsertId` method returns the last inserted id:
 
 ```php
-if ($handler->query('INSERT INTO kanso_users(name,Age) VALUES(:f,:age)', ['f'=>'Vivek','age'=>'20']))
+if ($handler->query('INSERT INTO users(name,Age) VALUES(:f,:age)', ['f'=>'Vivek','age'=>'20']))
 {
     $id = $handler()->lastInsertId();
 }
@@ -319,11 +318,11 @@ if ($handler->query('INSERT INTO kanso_users(name,Age) VALUES(:f,:age)', ['f'=>'
 ### Method Params
 The `row` and the `query` method have a third optional parameter which is the fetch style.
 
-The default fetch style is `PDO::FETCH_ASSOC` which returns an associative array. You can change this behavior by providing a valid PHP [PDO fetch_style](https://www.php.net/manual/en/pdostatement.fetch.php) as the third parameter.
+The default fetch style is `PDO::FETCH_ASSOC` which returns an associative array. You can change this behavior by providing a valid PHP [PDO fetch_style](https://www.php.net/manual/en/pdostatement.fetch.php) as the third parameter if needed.
 
 ```php
 # Fetch style as third parameter
-$authorNum = $connection->row('SELECT * FROM kanso_users WHERE id = :id', ['id' => 1 ], PDO::FETCH_NUM);
+$authorNum = $connection->row('SELECT * FROM users WHERE id = :id', ['id' => 1 ], PDO::FETCH_NUM);
 
 print_r($person_num);
 # [ [0] => 1 [1] => Johny [2] => Doe [3] => M [4] => 19 ]
@@ -377,19 +376,19 @@ When chaining methods, the chaining order follows the same syntax as if you were
 You can access the Builder class directly through the IoC container via the Database object:
 
 ```php
-$builder = $kanso->Database->builder();
+$builder = $database->builder();
 ```
 <br/>
 
 Alternatively if you have a reference to an existing database `connection`, you can access the builder directly through the `connection`.
 
 ```php
-$builder = $kanso->Database->connection()->builder();
+$builder = $database->connection()->builder();
 ```
 <br/>
 
 ### Table Management
-The Builder class provides various methods to manipulate and interact with database tables. All the table management will return the Builder instance at hand, making them chainable.
+The Builder class provides various methods to manipulate and interact with database tables. All the table management will return the `Builder` instance at hand, making them chainable.
 
 The `CREATE_TABLE` method is used to create a table:
 
@@ -427,7 +426,7 @@ $table = $builder->ALTER_TABLE('custom_posts');
 ```
 <br/>
 
-> The `Alter` class provides a number of helper methods to interact with the table at hand. The alter methods all return the working instance of the Alter class, making them chainable.
+> The `Alter` class provides a number of helper methods to interact with the table at hand. The alter methods all return the working instance of the `Alter` class, making them chainable.
 
 The `ADD_COLUMN` method adds a column to an existing table:
 
@@ -478,6 +477,7 @@ $column->DROP_FOREIGN_KEY($referenceTable, $referenceKey, $constraint = null);
 <br/>
 
 #### Foreign Keys
+
 To set a foreign key constraint, use the `ADD_FOREIGN_KEY` method. The first parameter is the reference table, the second is the reference table's column name. The third parameter is optional and is used to set the name of the constraint. If omitted, a constraint name will be generated for you.
 
 ```php
@@ -508,12 +508,13 @@ $builder->ALTER_TABLE('custom_posts')->ADD_COLUMN('author_id', 'INTEGER | UNSIGN
 <br/>
 
 ### Query Building
-The Builder class provides almost all SQL query statements by providing a wrapper around the Query class. The methods can be placed into three logical sections:
 
-- Query types
-- Query filters
-- Query organizers
-- Query executions
+The Builder class provides almost all SQL query statements by providing a wrapper simple class. The methods can be placed into three logical sections:
+
+- Query types - Set intial query type (e.g `select`, `delete`, etc... )
+- Query filters - Filter query (e.g `where` ) 
+- Query organizers - How the results are formatted (e.g `limit`, `order_by` etc.. ) 
+- Query executions - Run the query and return result
 
 #### Types
 
@@ -523,24 +524,35 @@ The following methods can be used to set the query type:
 
 ```php
 # Set the query to query a given table
-$builder->FROM($tablename);
+$builder->FROM('table_name');
 
 # Set the query type to UPDATE on a given table
-$builder->UPDATE($tablename);
+$builder->UPDATE('table_name');
 
 # Set the query type to INSERT INTO on a given table
-$builder->INSERT_INTO($tablename);
+$builder->INSERT_INTO('table_name');
 
 # Set the query type to DELETE on a given table
-$builder->DELETE_FROM($tablename);
+$builder->DELETE_FROM('table_name');
 
-# Set the query type to SELECT on the current 
-# table and set the columns to select
-$builder->SELECT($tablename);
+# Set the query type to SELECT with all columns
+$builder->SELECT('*');
+
+# Set the query type to SELECT on a given table with all columns
+$builder->SELECT('table_name.*');
+
+# Set the query type to SELECT on a given table with specific columns
+$builder->SELECT('table_name(id, firstname, lastname)');
+
+# Select multiple columns from a table
+$builder->SELECT('column_name1, column_name2')->FROM('table_name');
+
+# Set the query type to SELECT on multiple tables with multiple columns
+$builder->SELECT('table1_name(column1, column2), table2_name(column1))');
 
 # Set the query type to INSERT INTO on the current 
 # table and set the values to insert
-$builder->VALUES($rows);
+$builder->INSERT_INTO('users')->VALUES(['name', 'John']);
 
 # Set the query type to SET on the current 
 # table and set the values to set
@@ -549,7 +561,7 @@ $builder->SET($rows);
 <br/>
 
 #### Filters
-Query filters are where you build your query to filter the table results. The following methods can be used to filter the query:
+Query filters are where you build your query to filter the table results or statement to given values. The following methods can be used to filter the query:
 
 ```php
 # Add a WHERE clause
@@ -610,7 +622,7 @@ $builder->ROW();
 # if an id is provided add (id = $id) AND WHERE clause
 $builder->FIND($id = null);
 
-# Execute the query
+# Execute the query, find all results
 $builder->FIND_ALL();
 
 # Execute an INSERT, DELETE, UPDATE or SET query
@@ -619,18 +631,18 @@ $builder->QUERY();
 <br/>
 
 #### Query Chains
-Query chaining is where it all comes together and allows you to execute a query in the same syntax as if you were to write an SQL query statement. Here are some examples:
+Query chaining is where it all comes together and allows you to execute a query in a very similar syntax to writing an SQL query statement. Here are some examples:
 
 ```php
 # Check if an author is registered under a given email address
 $email = $builder->SELECT('*')
-         ->export();>FROM('users')
+         ->FROM('users')
          ->WHERE('email', '=', 'example@email.com')
          ->FIND();
 
 # Check if an author is registered under a given email address and username
 $author = $builder->SELECT('*')
-          ->export();>FROM('users')
+          ->FROM('users')
           ->WHERE('username', '=', 'johndoe')
           ->AND_WHERE('email', '=', 'example@email.com')
           ->ROW();
@@ -654,6 +666,13 @@ $tags = $builder->SELECT('tags.*')
         ->LEFT_JOIN_ON('tags', 'tags.id = tags_to_posts.tag_id')
         ->WHERE('tags_to_posts.post_id', '=', 2)
         ->FIND_ALL();
+
+# Get all posts with a given category id
+$posts = $builder->SELECT('posts.*')
+		 ->FROM('categories_to_posts')
+		 ->LEFT_JOIN_ON('posts', 'categories_to_posts.post_id = posts.id')
+		 ->WHERE('categories_to_posts.category_id', '=', 5)
+		 ->FIND_ALL();
 
 # Insert a row into the categories table
 $insert = $builder->INSERT_INTO('categories')
