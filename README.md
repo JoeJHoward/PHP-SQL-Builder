@@ -639,41 +639,47 @@ $email = $builder->SELECT('*')
          ->FROM('users')
          ->WHERE('email', '=', 'example@email.com')
          ->FIND();
-
+```
+```php
 # Check if an author is registered under a given email address and username
 $author = $builder->SELECT('*')
           ->FROM('users')
           ->WHERE('username', '=', 'johndoe')
           ->AND_WHERE('email', '=', 'example@email.com')
           ->ROW();
-
+```
+```php
 # Check if an author is registered under a multiple email addresses using nested
 # Or statements
 $authors = $builder->SELECT('*')
            ->FROM('users')
            ->WHERE('email', '=', ['foo@bar.com', 'bar@foo.com'])
            ->FIND_ALL();
-
+```
+```php
 # Get all autors that are confirmed
 $users = $builder->SELECT('*')
          ->FROM('users')
          ->WHERE('status', '=', 'confirmed')
          ->FIND_ALL();
-
+```
+```php
 # Get all of a post's tags
 $tags = $builder->SELECT('tags.*')
         ->FROM('tags_to_posts')
         ->LEFT_JOIN_ON('tags', 'tags.id = tags_to_posts.tag_id')
         ->WHERE('tags_to_posts.post_id', '=', 2)
         ->FIND_ALL();
-
+```
+```php
 # Get all posts with a given category id
 $posts = $builder->SELECT('posts.*')
 		 ->FROM('categories_to_posts')
 		 ->LEFT_JOIN_ON('posts', 'categories_to_posts.post_id = posts.id')
 		 ->WHERE('categories_to_posts.category_id', '=', 5)
 		 ->FIND_ALL();
-
+```
+```php
 # Insert a row into the categories table
 $insert = $builder->INSERT_INTO('categories')
         ->VALUES([
@@ -681,13 +687,15 @@ $insert = $builder->INSERT_INTO('categories')
             'slug' => 'javascript'
         ])
         ->QUERY();
-
+```
+```php
 # Update a post status
 $update = $builder->UPDATE('posts')
         ->SET(['status' => 'published'])
         ->WHERE('id', '=', 5)
         ->QUERY();
-
+```
+```php
 # Delete some posts
 $delete = $builder->DELETE_FROM('posts')
         ->WHERE('created', '<', strtotime('-5 months'))
