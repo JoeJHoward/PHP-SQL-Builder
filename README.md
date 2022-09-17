@@ -373,7 +373,7 @@ Essentially, the Builder class is a chainable wrapper around the SQL syntax. All
 When chaining methods, the chaining order follows the same syntax as if you were to write an SQL query statement.
 
 ### Access
-You can access the Builder class directly through the IoC container via the Database object:
+You can access the Builder class directly through via the `Database` object:
 
 ```php
 $builder = $database->builder();
